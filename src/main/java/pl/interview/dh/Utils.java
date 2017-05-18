@@ -82,7 +82,7 @@ public class Utils {
                     if (filePointer < fileLength) {
                         line = line + 1;
                     }
-                    // CR
+                // CR
                 } else if (readByte == 0xD) {
                     if (filePointer < fileLength - 1) {
                         line = line + 1;
