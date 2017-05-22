@@ -27,7 +27,7 @@ public class PostReportTask implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(PostReportTask.class.getName());
 
-    private static final String REPORT_URL = Main.getProperty("report.url");
+    private static final String REPORT_URL = Main.getProperties("report.url");
 
     private static final int FILE_LINES = 3;
 
@@ -38,7 +38,7 @@ public class PostReportTask implements Runnable {
         try {
             final List<ReportDto> dtoList = getReports();
 
-            final String logPath = Main.getProperty("report.post.path");
+            final String logPath = Main.getProperties("report.post.path");
             final ObjectMapper mapper = new ObjectMapper();
             for (final ReportDto dto : dtoList) {
                 final String json = mapper.writeValueAsString(dto);
@@ -68,7 +68,7 @@ public class PostReportTask implements Runnable {
             post.setHeader("Content-type", "application/json");
             client.execute(post);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             Utils.startReportTask(new StringBuilder(e.getMessage()), logPath);
             return false;
         }
@@ -77,7 +77,7 @@ public class PostReportTask implements Runnable {
     private List<ReportDto> getReports() {
         final List<ReportDto> dtos = new ArrayList<>();
 
-        final String logPrefix = Main.getProperty("report.logs.prefix");
+        final String logPrefix = Main.getProperties("report.logs.prefix");
         String basePath;
         try {
             basePath = new File(DOT + logPrefix).getCanonicalPath();
@@ -87,12 +87,12 @@ public class PostReportTask implements Runnable {
             return dtos;
         }
 
-        final String hostsString = Main.getProperty("hosts");
+        final String hostsString = Main.getProperties("hosts");
         final String[] hosts = hostsString.split(COMMA);
 
-        final String icmpPath = Main.getProperty("report.icmp.path");
-        final String tcpPath = Main.getProperty("report.tcp.path");
-        final String tracePath = Main.getProperty("report.trace.path");
+        final String icmpPath = Main.getProperties("report.icmp.path");
+        final String tcpPath = Main.getProperties("report.tcp.path");
+        final String tracePath = Main.getProperties("report.trace.path");
 
         for (final String host : hosts) {
             final ReportDto dto = new ReportDto();

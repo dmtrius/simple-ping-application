@@ -46,18 +46,18 @@ public class Utils {
 
     public static void startReportTask(final StringBuilder buffer, final String logPath, final String host) {
         try {
-            final String logPrefix = Main.getProperty("report.logs.prefix");
+            final String logPrefix = Main.getProperties("report.logs.prefix");
             final StringBuilder filePath = new StringBuilder();
             filePath
-                    .append(DOT)
-                    .append(logPrefix);
+                .append(DOT)
+                .append(logPrefix);
             if (null != host) {
                 filePath
-                        .append(Utils.removeProtocol(host))
-                        .append(DOT);
+                    .append(Utils.removeProtocol(host))
+                    .append(DOT);
             }
             filePath
-                    .append(logPath);
+                .append(logPath);
 
             final String path = new File(filePath.toString()).getCanonicalPath();
             new Thread(new ReportTask(path, buffer.toString())).start();
@@ -68,7 +68,7 @@ public class Utils {
     }
 
     public static String tail(final File file, final int lines) {
-        try (RandomAccessFile fileHandler = new java.io.RandomAccessFile(file, "r")) {
+        try (final RandomAccessFile fileHandler = new java.io.RandomAccessFile(file, "r")) {
             long fileLength = fileHandler.length() - 1;
             final StringBuilder sb = new StringBuilder();
             int line = 0;
@@ -118,8 +118,8 @@ public class Utils {
         }
 
         String buffer;
-        StringBuilder result = new StringBuilder();
-        try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+        final StringBuilder result = new StringBuilder();
+        try (final BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
             while (null != (buffer = stdInput.readLine())) {
                 result.append(buffer);
             }
@@ -136,7 +136,7 @@ public class Utils {
         result.delete(0, result.length());
 
         // ERRORS
-        try (BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()))) {
+        try (final BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()))) {
             while ((buffer = stdError.readLine()) != null) {
                 result.append(buffer);
                 System.out.println(buffer);

@@ -3,10 +3,8 @@ package pl.interview.dh.tasks;
 
 import pl.interview.dh.Main;
 import pl.interview.dh.Utils;
-import pl.interview.dh.tasks.icmp.IcmpTask;
 import pl.interview.dh.tasks.report.PostReportTask;
 import pl.interview.dh.tasks.tcp.TcpTask;
-import pl.interview.dh.tasks.trace.TraceTask;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -23,26 +21,26 @@ public class Runner implements Runnable {
     public void run() {
         LOG.log(Level.WARNING, "start runner @ {0}", new Object[]{new Date()});
 
-        final String hostsString = Main.getProperty("hosts");
+        final String hostsString = Main.getProperties("hosts");
         final String[] hosts = hostsString.split(Utils.COMMA);
 
-        Collection<Callable<Integer>> services = new LinkedList<>();
+        final List<Callable<Integer>> services = new LinkedList<>();
 
         // ICMP task
-        final String countParam = Main.getProperty("ping.count_param");
-        final String count = Main.getProperty("ping.count");
+        /*final String countParam = Main.getProperties("ping.count_param");
+        final String count = Main.getProperties("ping.count");
         for (final String host : hosts) {
             services.add(new IcmpTask(Utils.removeProtocol(host), countParam, count));
-        }
+        }*/
 
         // TRACE task
-        final String traceCommand = Main.getProperty("trace.command");
+        /*final String traceCommand = Main.getProperties("trace.command");
         for (final String host : hosts) {
             services.add(new TraceTask(Utils.removeProtocol(host), traceCommand));
-        }
+        }*/
 
         // TCP task
-        final String tcpTimeout = Main.getProperty("tcp.timeout");
+        final String tcpTimeout = Main.getProperties("tcp.timeout");
         for (final String host : hosts) {
             services.add(new TcpTask(host, tcpTimeout));
         }
@@ -52,7 +50,7 @@ public class Runner implements Runnable {
         services.forEach(executor::submit);
         executor.shutdown();
 
-        final String timeout = Main.getProperty("tcp.timeout");
+        final String timeout = Main.getProperties("tcp.timeout");
 
         while (isWait) {
             try {

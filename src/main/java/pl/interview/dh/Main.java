@@ -22,24 +22,24 @@ public class Main {
             throw new RuntimeException("could not load config");
         }
 
-        final Long delay = Long.valueOf(getProperty("delay"));
+        final Long delay = Long.valueOf(getProperties("delay"));
         final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new Runner(), 1, delay, TimeUnit.SECONDS);
-    }
-
-    public static String getProperty(final String name) {
-        return properties.getProperty(name);
     }
 
     private static void getProperties() throws IOException {
         properties.load(Main.class.getClassLoader().getResourceAsStream("config.properties"));
         if (isWindows()) {
-            properties.put("ping.count_param", getProperty("ping.count_param.windows"));
-            properties.put("trace.command", getProperty("trace.command.windows"));
+            properties.put("ping.count_param", getProperties("ping.count_param.windows"));
+            properties.put("trace.command", getProperties("trace.command.windows"));
         } else {
-            properties.put("ping.count_param", getProperty("ping.count_param.nix"));
-            properties.put("trace.command", getProperty("trace.command.nix"));
+            properties.put("ping.count_param", getProperties("ping.count_param.nix"));
+            properties.put("trace.command", getProperties("trace.command.nix"));
         }
+    }
+
+    public static String getProperties(final String name) {
+        return properties.getProperty(name);
     }
 
     private static boolean isWindows() {

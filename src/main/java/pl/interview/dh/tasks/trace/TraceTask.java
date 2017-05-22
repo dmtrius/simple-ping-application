@@ -25,7 +25,7 @@ public class TraceTask implements Callable<Integer> {
     public Integer call() {
         LOG.log(Level.WARNING, "start TraceTask @ {0} for host {1}", new Object[]{new Date(), host});
 
-        final String logPath = Main.getProperty("report.trace.path");
+        final String logPath = Main.getProperties("report.trace.path");
         final String[] commands = {command, host};
         Utils.exec(commands, host, logPath);
 

@@ -35,7 +35,7 @@ public class TcpTask implements Callable<Integer> {
     public Integer call() {
         LOG.log(Level.WARNING, "start TcpTask @ {0} for host {1}", new Object[]{new Date(), host});
 
-        StringBuilder result = new StringBuilder();
+        final StringBuilder result = new StringBuilder();
         result.append(host).append(DELIMITER);
 
         final long requestStart = System.currentTimeMillis();
@@ -47,20 +47,23 @@ public class TcpTask implements Callable<Integer> {
         final HttpGet httpget = new HttpGet(host);
         httpget.setConfig(requestConfig);
 
-        try (CloseableHttpClient httpclient = HttpClients.createDefault(); CloseableHttpResponse response = httpclient.execute(httpget)) {
-            StatusLine statusLine = response.getStatusLine();
-            long requestDuration = System.currentTimeMillis() - requestStart;
+        try (final CloseableHttpClient httpclient = HttpClients.createDefault();
+             final CloseableHttpResponse response = httpclient.execute(httpget)) {
+            final StatusLine statusLine = response.getStatusLine();
+            final long requestDuration = System.currentTimeMillis() - requestStart;
             if (null != statusLine) {
                 status = statusLine.getStatusCode();
             }
             result.append(status).append(DELIMITER).append(requestDuration).append(MSEC);
 
             // REPORT
-            final String logPath = Main.getProperty("report.tcp.path");
+            final String logPath = Main.getProperties("report.tcp.path");
             Utils.appendStringEnd(result);
             Utils.startReportTask(result, logPath, host);
         } catch (IOException e) {
             LOG.log(Level.WARNING, e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 1;

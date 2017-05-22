@@ -29,7 +29,7 @@ public class IcmpTask implements Callable<Integer> {
         LOG.log(Level.WARNING, "start IcmpTask @ {0} for host {1}", new Object[]{new Date(), host});
 
         final String[] commands = {PING, countParam, count, host};
-        final String logPath = Main.getProperty("report.icmp.path");
+        final String logPath = Main.getProperties("report.icmp.path");
         Utils.exec(commands, host, logPath);
 
         return 1;
