@@ -3,8 +3,10 @@ package pl.interview.dh.tasks;
 
 import pl.interview.dh.Main;
 import pl.interview.dh.Utils;
+import pl.interview.dh.tasks.icmp.IcmpTask;
 import pl.interview.dh.tasks.report.PostReportTask;
 import pl.interview.dh.tasks.tcp.TcpTask;
+import pl.interview.dh.tasks.trace.TraceTask;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -27,17 +29,17 @@ public class Runner implements Runnable {
         final List<Callable<Integer>> services = new LinkedList<>();
 
         // ICMP task
-        /*final String countParam = Main.getProperties("ping.count_param");
+        final String countParam = Main.getProperties("ping.count_param");
         final String count = Main.getProperties("ping.count");
         for (final String host : hosts) {
             services.add(new IcmpTask(Utils.removeProtocol(host), countParam, count));
-        }*/
+        }
 
         // TRACE task
-        /*final String traceCommand = Main.getProperties("trace.command");
+        final String traceCommand = Main.getProperties("trace.command");
         for (final String host : hosts) {
             services.add(new TraceTask(Utils.removeProtocol(host), traceCommand));
-        }*/
+        }
 
         // TCP task
         final String tcpTimeout = Main.getProperties("tcp.timeout");

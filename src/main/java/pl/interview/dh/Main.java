@@ -18,13 +18,12 @@ public class Main {
     public static void main(String... args) {
         try {
             getProperties();
+            final Long delay = Long.valueOf(getProperties("delay"));
+            final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.scheduleAtFixedRate(new Runner(), 1, delay, TimeUnit.SECONDS);
         } catch (Exception e) {
-            throw new RuntimeException("could not load config");
+            throw new RuntimeException("could not load config or system error");
         }
-
-        final Long delay = Long.valueOf(getProperties("delay"));
-        final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(new Runner(), 1, delay, TimeUnit.SECONDS);
     }
 
     private static void getProperties() throws IOException {
