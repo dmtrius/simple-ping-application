@@ -26,7 +26,7 @@ public class Runner implements Runnable {
         final String hostsString = Main.getProperties("hosts");
         final String[] hosts = hostsString.split(Utils.COMMA);
 
-        final List<Callable<Integer>> services = new LinkedList<>();
+        final List<Callable<Integer>> services = new ArrayList<>();
 
         // ICMP task
         final String countParam = Main.getProperties("ping.count_param");
@@ -56,7 +56,7 @@ public class Runner implements Runnable {
 
         while (isWait) {
             try {
-                // just guess - 2 * hosts.length * tcp.timeout
+                // just guess - 2 * hostsCount * tcp.timeout
                 final int magic = 1;
                 while(true) {
                     isWait = !executor.awaitTermination(magic * hosts.length * Integer.parseInt(timeout), TimeUnit.MILLISECONDS);

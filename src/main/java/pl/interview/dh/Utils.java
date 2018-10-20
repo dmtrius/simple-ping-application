@@ -95,7 +95,7 @@ public class Utils {
             }
 
             return sb.reverse().toString();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
