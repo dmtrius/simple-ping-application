@@ -29,9 +29,11 @@ public class Utils {
             final File logFile = new File(filePath).getCanonicalFile();
             if (!logFile.getParentFile().exists()) {
                 logFile.getParentFile().mkdirs();
+                LOG.info("created dirs for " + logFile.getName());
             }
             if (!logFile.exists()) {
                 logFile.createNewFile();
+                LOG.info("created FILE " + logFile.getName());
             }
             final Path path = Paths.get(logFile.toURI());
             Files.write(path, content.getBytes(), StandardOpenOption.APPEND);

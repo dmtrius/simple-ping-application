@@ -18,7 +18,7 @@ public class Main {
     public static void main(String... args) {
         try {
             getProperties();
-            final Long delay = Long.valueOf(getProperties("delay"));
+            final long delay = Long.parseLong(getProperties("delay"));
             final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.scheduleAtFixedRate(new Runner(), 1, delay, TimeUnit.SECONDS);
         } catch (Exception e) {

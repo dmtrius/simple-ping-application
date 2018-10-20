@@ -11,6 +11,7 @@ import pl.interview.dh.Main;
 import pl.interview.dh.Utils;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
@@ -60,6 +61,9 @@ public class TcpTask implements Callable<Integer> {
             final String logPath = Main.getProperties("report.tcp.path");
             Utils.appendStringEnd(result);
             Utils.startReportTask(result, logPath, host);
+        } catch (UnknownHostException e) {
+            LOG.log(Level.WARNING, "UNKNOWN HOST: {0}", e.getMessage());
+            return 0;
         } catch (IOException e) {
             LOG.log(Level.WARNING, e.getMessage());
             e.printStackTrace();

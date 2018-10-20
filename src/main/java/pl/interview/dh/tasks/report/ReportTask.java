@@ -20,7 +20,7 @@ public class ReportTask implements Runnable {
 
     @Override
     public void run() {
-        LOG.log(Level.WARNING, "Running report task for path {0}", new Object[]{path});
+        LOG.log(Level.INFO, "Running report task for path {0}", new Object[]{path});
         Utils.writeFile(path, String.format("%s%s%s", new Date(), Utils.NEW_LINE, content));
     }
 }

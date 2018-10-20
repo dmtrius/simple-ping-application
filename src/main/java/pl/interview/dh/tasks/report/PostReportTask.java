@@ -69,7 +69,9 @@ public class PostReportTask implements Runnable {
             client.execute(post);
             return true;
         } catch (Exception e) {
-            Utils.startReportTask(new StringBuilder(e.getMessage()), logPath);
+            if (null != e.getMessage()) {
+                Utils.startReportTask(new StringBuilder(e.getMessage()), logPath);
+            }
             return false;
         }
     }
