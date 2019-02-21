@@ -14,6 +14,7 @@ public class ReportServer {
     private static final Logger LOG = Logger.getLogger(ReportServer.class.getName());
 
     public static void main(String... args) throws IOException {
+        System.out.println("STARTED");
         try (final ServerSocket listener = new ServerSocket(9090)) {
             while (true) {
                 try (final Socket socket = listener.accept()) {

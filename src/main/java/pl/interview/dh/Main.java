@@ -12,6 +12,7 @@ public class Main {
 
     private static final String OS_NAME = "os.name";
     private static final String WINDOWS = "Windows";
+    private static final String OSX = "Mac OS X";
 
     private static volatile Properties properties = new Properties();
 
@@ -31,6 +32,9 @@ public class Main {
         if (isWindows()) {
             properties.put("ping.count_param", getProperties("ping.count_param.windows"));
             properties.put("trace.command", getProperties("trace.command.windows"));
+        } else if (isOsX()) {
+            properties.put("ping.count_param", getProperties("ping.count_param.nix"));
+            properties.put("trace.command", getProperties("trace.command.osx"));
         } else {
             properties.put("ping.count_param", getProperties("ping.count_param.nix"));
             properties.put("trace.command", getProperties("trace.command.nix"));
@@ -43,5 +47,9 @@ public class Main {
 
     private static boolean isWindows() {
         return System.getProperty(OS_NAME).startsWith(WINDOWS);
+    }
+
+    private static boolean isOsX() {
+        return System.getProperty(OS_NAME).startsWith(OSX);
     }
 }
