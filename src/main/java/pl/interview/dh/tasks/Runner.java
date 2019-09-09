@@ -60,11 +60,11 @@ public class Runner implements Runnable {
                 final int magic = 1;
                 while(true) {
                     isWait = !executor.awaitTermination(magic * hosts.length * Integer.parseInt(timeout), TimeUnit.MILLISECONDS);
-                    if (!isWait) {
+                    //if (!isWait) {
                         new Thread(new PostReportTask(), "POST_REPORT: " + new Date()).start();
                         executor.shutdownNow();
                         break;
-                    }
+                    //}
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

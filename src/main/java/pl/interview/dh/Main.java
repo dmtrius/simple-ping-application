@@ -3,6 +3,7 @@ package pl.interview.dh;
 import pl.interview.dh.tasks.Runner;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -28,7 +29,7 @@ public class Main {
     }
 
     private static void getProperties() throws IOException {
-        properties.load(Main.class.getClassLoader().getResourceAsStream("config.properties"));
+        properties.load(Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("config.properties")));
         if (isWindows()) {
             properties.put("ping.count_param", getProperties("ping.count_param.windows"));
             properties.put("trace.command", getProperties("trace.command.windows"));

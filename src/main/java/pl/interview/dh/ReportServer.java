@@ -15,7 +15,7 @@ public class ReportServer {
 
     public static void main(String... args) throws IOException {
         System.out.println("STARTED");
-        try (final ServerSocket listener = new ServerSocket(9090)) {
+        try (final ServerSocket listener = new ServerSocket(9091)) {
             while (true) {
                 try (final Socket socket = listener.accept()) {
                     LOG.log(Level.INFO, "report");

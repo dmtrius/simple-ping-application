@@ -12,7 +12,7 @@
     <properties>
         <commons-lang3.version>3.5</commons-lang3.version>
         <httpclient.version>4.5.2</httpclient.version>
-        <lombok.version>1.18.6</lombok.version>
+        <lombok.version>1.18.8</lombok.version>
         <jackson-core.version>2.8.6</jackson-core.version>
         <jackson-databind.version>[2.8.11.1,)</jackson-databind.version>
     </properties>
@@ -73,9 +73,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <release>11</release>
-                    <source>11</source>
-                    <target>11</target>
+<!--                    <release>1.8</release>-->
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
