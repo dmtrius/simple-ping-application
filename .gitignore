@@ -6,7 +6,7 @@
 logs/
 .idea/
 # User-specific stuff:
-.idea/**/workspace.xml
+.idea/*
 .idea/**/tasks.xml
 .idea/dictionaries
 
@@ -72,5 +72,3 @@ hs_err_pid*
 
 out/
 src/test/
-.idea/*
-
